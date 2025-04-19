@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cheers to 10 Months of Love, Nicky!</title>
-  <!-- Removed Google Fonts as Times New Roman is a system font -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -38,31 +37,30 @@
 </head>
 <body class="bg-pink-100 min-h-screen flex flex-col items-center justify-center p-6 text-pink-900 select-none">
   <div id="page1" class="w-full max-w-3xl flex flex-col items-center text-center">
-    <h1 class="text-5xl md:text-6xl mb-6">
+    <h1 class="text-5xl md:text-6xl mb-6 font-extrabold drop-shadow-lg">
       Cheers to 10 Months of Love, Nicky!
     </h1>
-    <p class="text-2xl md:text-3xl mb-8 max-w-xl mx-auto">
+    <p class="text-2xl md:text-3xl mb-8 max-w-xl mx-auto font-semibold">
       Selamat 10 bulan pacaran! Semoga hubungan kita selalu penuh cinta, tawa, dan kebahagiaan. ❤️
     </p>
     <button id="funButton" class="bg-pink-400 hover:bg-pink-500 text-pink-900 font-bold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300">
-      Click me for a surprise!
+      click me for a surprise
     </button>
-    <div id="message" class="mt-8 text-xl md:text-2xl text-pink-800 font-semibold"></div>
-    <button id="toPage2" class="mt-12 text-pink-900 underline hover:text-pink-700 focus:outline-none">
-      Show more
+    <div id="message" class="mt-8 text-2xl md:text-3xl text-pink-800 font-semibold animate-pulse"></div>
+    <button id="toPage2" class="mt-12 text-pink-900 underline hover:text-pink-700 focus:outline-none text-xl font-medium">
+      Go to special message
     </button>
   </div>
 
   <div id="page2" class="hidden w-full max-w-3xl flex flex-col items-center text-center">
-    <h2 class="text-4xl mb-4">Special Messages</h2>
-    <p class="text-lg md:text-xl mb-6 italic text-pink-900">
-      Thank you udah sabar dan selalu ada buat gw
+    <h2 class="text-4xl mb-6 font-extrabold drop-shadow-md">Special Message</h2>
+    <p class="text-xl md:text-2xl mb-6 italic text-pink-900 font-semibold max-w-xl mx-auto">
+      thank you udah selalu sabar dan selalu ada buat gw ya
     </p>
-    <!-- Image removed as per user request -->
-    <p class="text-base md:text-lg mb-8 max-w-xl mx-auto text-pink-900">
-      Thank you juga udah jadi bagian dari hidup marsha yang baik hati, gemas dan cantik ini. I'm so lucky to have you, love you so much much much and more more more.
+    <p class="text-lg md:text-xl mb-8 max-w-xl mx-auto text-pink-900 font-semibold">
+      Thank you juga udah jadi bagian dari hidup marsha, i'm so lucky to have you. Love u so much much much!
     </p>
-    <button id="backToPage1" class="bg-pink-400 hover:bg-pink-500 text-pink-900 font-bold py-2 px-4 rounded-lg shadow-lg transition transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300">
+    <button id="backToPage1" class="bg-pink-400 hover:bg-pink-500 text-pink-900 font-bold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300 text-lg">
       Back to main page
     </button>
   </div>
@@ -91,27 +89,27 @@
 
     button.addEventListener('click', () => {
       const messages = [
-        'Bisa-bisanya lo ga inget?!',
-        'Maap ya marah-marah abisnya ayang nyebelin',
-        'Minimal ngucapin sih kata gw mah',
-        'Yaudalah ya, met 10 bulan',
-        'Love u ayang!',
+        'surprise kamu saya omelin ya',
+        'bisa-bisanya lo ga inget pasti kan?!',
+        'minimal ngucapin kek',
+        'sorry ya marah-marah abisnya lu nyebelin',
+        'tp gpp, met 10 bulan',
+        'love u ayang'
       ];
       let index = 0;
-      message.textContent = messages[index];
-      const interval = setInterval(() => {
-        index++;
-        if (index >= messages.length) {
-          clearInterval(interval);
-          button.disabled = true;
-          button.textContent = 'Terima kasih sudah klik!';
-          button.classList.remove('hover:bg-yellow-500', 'hover:scale-105');
-          // Reveal the surprise photo on page 2
-          document.getElementById('surprisePhoto').classList.remove('hidden');
-          return;
+      button.disabled = true;
+
+      function showNextMessage() {
+        if (index < messages.length) {
+          message.textContent = messages[index];
+          index++;
+          setTimeout(showNextMessage, 2000);
+        } else {
+          message.textContent = '';
+          button.textContent = 'thank you!';
         }
-        message.textContent = messages[index];
-      }, 3000);
+      }
+      showNextMessage();
 
       for (let i = 0; i < 40; i++) {
         setTimeout(createConfetti, i * 80);
@@ -126,6 +124,10 @@
     backToPage1.addEventListener('click', () => {
       page2.classList.add('hidden');
       page1.classList.remove('hidden');
+      // Reset page1 button and message
+      message.textContent = '';
+      button.disabled = false;
+      button.textContent = 'click me for a surprise';
     });
   </script>
 </body>
