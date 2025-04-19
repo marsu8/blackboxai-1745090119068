@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cheers to 10 Months of Love, Nicky!</title>
+  <!-- Removed Google Fonts as Times New Roman is a system font -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Times New Roman', serif;
+    }
+    .confetti {
+      position: fixed;
+      width: 15px;
+      height: 15px;
+      opacity: 0.9;
+      animation: fall 4s linear infinite;
+      pointer-events: none;
+      z-index: 9999;
+      background-color: transparent;
+      clip-path: polygon(
+        50% 15%, 61% 0%, 75% 10%, 85% 25%, 85% 40%, 75% 55%, 50% 75%, 25% 55%, 15% 40%, 15% 25%, 25% 10%, 39% 0%
+      );
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body class="bg-pink-100 min-h-screen flex flex-col items-center justify-center p-6 text-pink-900 select-none">
+  <div id="page1" class="w-full max-w-3xl flex flex-col items-center text-center">
+    <h1 class="text-5xl md:text-6xl mb-6">
+      Cheers to 10 Months of Love, Nicky!
+    </h1>
+    <p class="text-2xl md:text-3xl mb-8 max-w-xl mx-auto">
+      Selamat 10 bulan pacaran! Semoga hubungan kita selalu penuh cinta, tawa, dan kebahagiaan. ❤️
+    </p>
+    <button id="funButton" class="bg-pink-400 hover:bg-pink-500 text-pink-900 font-bold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300">
+      Click me for a surprise!
+    </button>
+    <div id="message" class="mt-8 text-xl md:text-2xl text-pink-800 font-semibold"></div>
+    <button id="toPage2" class="mt-12 text-pink-900 underline hover:text-pink-700 focus:outline-none">
+      Show more
+    </button>
+  </div>
+
+  <div id="page2" class="hidden w-full max-w-3xl flex flex-col items-center text-center">
+    <h2 class="text-4xl mb-4">Special Messages</h2>
+    <p class="text-lg md:text-xl mb-6 italic text-pink-900">
+      Thank you udah sabar dan selalu ada buat gw
+    </p>
+    <!-- Image removed as per user request -->
+    <p class="text-base md:text-lg mb-8 max-w-xl mx-auto text-pink-900">
+      Thank you juga udah jadi bagian dari hidup marsha yang baik hati, gemas dan cantik ini. I'm so lucky to have you, love you so much much much and more more more.
+    </p>
+    <button id="backToPage1" class="bg-pink-400 hover:bg-pink-500 text-pink-900 font-bold py-2 px-4 rounded-lg shadow-lg transition transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300">
+      Back to main page
+    </button>
+  </div>
+
+  <script>
+    const page1 = document.getElementById('page1');
+    const page2 = document.getElementById('page2');
+    const button = document.getElementById('funButton');
+    const message = document.getElementById('message');
+    const toPage2 = document.getElementById('toPage2');
+    const backToPage1 = document.getElementById('backToPage1');
+
+    function createConfetti() {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confetti.style.left = Math.random() * window.innerWidth + 'px';
+      const hue = Math.random() * 360;
+      confetti.style.backgroundColor = `hsl(${hue}, 90%, 65%)`;
+      confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+      confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+      document.body.appendChild(confetti);
+      setTimeout(() => {
+        confetti.remove();
+      }, 4000);
+    }
+
+    button.addEventListener('click', () => {
+      const messages = [
+        'Bisa-bisanya lo ga inget?!',
+        'Maap ya marah-marah abisnya ayang nyebelin',
+        'Minimal ngucapin sih kata gw mah',
+        'Yaudalah ya, met 10 bulan',
+        'Love u ayang!',
+      ];
+      let index = 0;
+      message.textContent = messages[index];
+      const interval = setInterval(() => {
+        index++;
+        if (index >= messages.length) {
+          clearInterval(interval);
+          button.disabled = true;
+          button.textContent = 'Terima kasih sudah klik!';
+          button.classList.remove('hover:bg-yellow-500', 'hover:scale-105');
+          // Reveal the surprise photo on page 2
+          document.getElementById('surprisePhoto').classList.remove('hidden');
+          return;
+        }
+        message.textContent = messages[index];
+      }, 3000);
+
+      for (let i = 0; i < 40; i++) {
+        setTimeout(createConfetti, i * 80);
+      }
+    });
+
+    toPage2.addEventListener('click', () => {
+      page1.classList.add('hidden');
+      page2.classList.remove('hidden');
+    });
+
+    backToPage1.addEventListener('click', () => {
+      page2.classList.add('hidden');
+      page1.classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
